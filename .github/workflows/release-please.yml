@@ -20,7 +20,7 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ORG_AUTOMATION_TOKEN }}
 
   release-pypi:
     name: Publish to PyPi
@@ -33,7 +33,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
-          version: "0.5.20"
+          version: "0.7.10"
           enable-cache: true
           cache-dependency-glob: "./projects/pgai/uv.lock"
 

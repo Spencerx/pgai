@@ -11,7 +11,7 @@ from typing import Any
 import click
 import psycopg
 import structlog
-from ddtrace import tracer
+from ddtrace.trace import tracer
 from dotenv import find_dotenv, load_dotenv
 from pytimeparse import parse  # type: ignore
 
@@ -1198,7 +1198,7 @@ def generate_sql(
     catalog_name: str | None,
     embed_config: str | None,
     prompt: str,
-    iteration_limit: int = 5,
+    iteration_limit: int = 10,
     sample_size: int = 3,
     quiet: bool = False,
     log_file: Path | None = None,
@@ -1344,8 +1344,6 @@ def generate_sql(
         )
         console.print(table)
 
-    console.print(Rule())
-    console.print(resp.final_response)
     console.print(Rule())
     console.print(Syntax(resp.sql_statement, "sql", word_wrap=True))
 
@@ -1494,6 +1492,7 @@ def search(
             return
 
         for obj in await sc.load_objects(
+            ccon,
             tcon,
             obj_matches,
             sample_size,
