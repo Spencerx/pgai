@@ -51,13 +51,13 @@ async def embed_batch(
 
     Raises:
         AssertionError: If the number of embeddings returned doesn't match the batch size.
-    """  # noqa: E501
+    """
     st = SentenceTransformer(
         config.model, trust_remote_code=True
     )  # TODO: configurable?
     sentences: list[str] = [x.content for x in batch]
     with disable_logging():
-        results: npt.NDArray[np.float64] = st.encode(  # pyright: ignore [reportUnknownMemberType]
+        results: npt.NDArray[np.float64] = st.encode(  # pyright: ignore [reportUnknownMemberType,reportUnknownVariableType]
             sentences=sentences,
             prompt_name=None,
             prompt=None,
@@ -97,7 +97,7 @@ async def embed_query(
     )  # TODO: configurable?
     sentences: list[str] = [query]
     with disable_logging():
-        results: npt.NDArray[np.float64] = st.encode(  # pyright: ignore [reportUnknownMemberType]
+        results: npt.NDArray[np.float64] = st.encode(  # pyright: ignore [reportUnknownMemberType,reportUnknownVariableType]
             sentences=sentences,
             prompt_name=None,
             prompt=None,
