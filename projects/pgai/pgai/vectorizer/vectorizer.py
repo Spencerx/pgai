@@ -12,7 +12,7 @@ from uuid import UUID
 
 import psycopg
 import structlog
-from ddtrace import tracer
+from ddtrace.trace import tracer
 from pgvector.psycopg import register_vector_async  # type: ignore
 from psycopg import AsyncConnection, sql
 from psycopg.rows import dict_row
@@ -817,7 +817,7 @@ class Executor:
                             e.msg,
                             Jsonb(
                                 {
-                                    "provider": self.vectorizer.config.embedding.implementation,  # noqa
+                                    "provider": self.vectorizer.config.embedding.implementation,
                                     "error_reason": str(e.__cause__),
                                 }
                             ),
@@ -825,7 +825,7 @@ class Executor:
                     )
 
                 if e.__cause__ is not None:
-                    raise e.__cause__  # noqa
+                    raise e.__cause__  # noqa: B904
                 raise e
 
             except Exception as e:
@@ -1188,12 +1188,18 @@ class Executor:
                     loading_errors.append((item, (LoadingError(e=e))))
                 continue
 
+            if isinstance(payload, str) and not payload:
+                continue
+
             payload = self.vectorizer.config.parsing.parse(item, payload)
             chunks = self.vectorizer.config.chunking.into_chunks(item, payload)
             for chunk_id, chunk in enumerate(chunks, 0):
                 formatted = self.vectorizer.config.formatting.format(chunk, item)
                 records_without_embeddings.append(pk_values + [chunk_id, formatted])
                 documents.append(formatted)
+
+        if not documents:
+            yield [], []
 
         if loading_errors:
             yield [], loading_errors

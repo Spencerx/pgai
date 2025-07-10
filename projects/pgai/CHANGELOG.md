@@ -1,5 +1,65 @@
 # Changelog
 
+## [0.11.4](https://github.com/timescale/pgai/compare/pgai-v0.11.3...pgai-v0.11.4) (2025-07-04)
+
+
+### Bug Fixes
+
+* skip empty strings when batching documents ([4e040a9](https://github.com/timescale/pgai/commit/4e040a9ba703494df89fa1ce0e41ca26806b87c8))
+
+## [0.11.3](https://github.com/timescale/pgai/compare/pgai-v0.11.2...pgai-v0.11.3) (2025-06-30)
+
+
+### Bug Fixes
+
+* pass voyage api key to client ([8eab632](https://github.com/timescale/pgai/commit/8eab632ca32c795451935cad6912b30395898a64))
+* store ModelRequest in generate_sql messages list ([#834](https://github.com/timescale/pgai/issues/834)) ([0dd09c0](https://github.com/timescale/pgai/commit/0dd09c0294225373653d36001dcafe28801de336))
+* vectorizer_relationship with tuple table args ([#805](https://github.com/timescale/pgai/issues/805)) ([ae49c48](https://github.com/timescale/pgai/commit/ae49c483e3be91af9842d351ff0328cda4ae1065))
+
+
+### Miscellaneous
+
+* ignore line-too-long (E501) lint ([#821](https://github.com/timescale/pgai/issues/821)) ([f3989d7](https://github.com/timescale/pgai/commit/f3989d7306552f5d2604aa25a266ec20f9f69c74))
+* remove git lfs ([2af8fbc](https://github.com/timescale/pgai/commit/2af8fbcb712a92bfa9c13da256c5ef5075949da7))
+* split deps into separate extras ([#800](https://github.com/timescale/pgai/issues/800)) ([3a11921](https://github.com/timescale/pgai/commit/3a1192125fc934d36e063b866cf73f49e306b62a))
+* store golden query results in files ([#819](https://github.com/timescale/pgai/issues/819)) ([fc9e23f](https://github.com/timescale/pgai/commit/fc9e23fc8580665e444cd51647304dd1d081f36e))
+
+## [0.11.2](https://github.com/timescale/pgai/compare/pgai-v0.11.1...pgai-v0.11.2) (2025-06-12)
+
+
+### Miscellaneous
+
+* use arm64 wheels for pandas ([#816](https://github.com/timescale/pgai/issues/816)) ([99f7c7c](https://github.com/timescale/pgai/commit/99f7c7c66f9f63a17d779bba54eb53998d59a294))
+* use cpu-only torch in pgai docker image ([#818](https://github.com/timescale/pgai/issues/818)) ([a5e0bd5](https://github.com/timescale/pgai/commit/a5e0bd52b2b0e7e6cbe0e79ef5988a78aa40cefa))
+
+## [0.11.1](https://github.com/timescale/pgai/compare/pgai-v0.11.0...pgai-v0.11.1) (2025-06-11)
+
+
+### Miscellaneous
+
+* switch back to python 3.12 in docker image ([#806](https://github.com/timescale/pgai/issues/806)) ([c8a8847](https://github.com/timescale/pgai/commit/c8a8847a697b49e1fdb769982803c2e8e86cae24))
+
+## [0.11.0](https://github.com/timescale/pgai/compare/pgai-v0.10.5...pgai-v0.11.0) (2025-06-11)
+
+
+### Features
+
+* support named vectorizers in ai.execute_vectorizer ([#776](https://github.com/timescale/pgai/issues/776)) ([5f4e3e1](https://github.com/timescale/pgai/commit/5f4e3e1f9c270a55b9d55975cfd6ef8f72138887))
+
+
+### Bug Fixes
+
+* incorrect error of column does not exist ([b8019a4](https://github.com/timescale/pgai/commit/b8019a4acce5a7bd2c1600d5e3a6dc0071b3e028))
+* skip granting already granted roles when granting permissions to ai.vectorizer_errors view ([#804](https://github.com/timescale/pgai/issues/804)) ([15a06e6](https://github.com/timescale/pgai/commit/15a06e6b99583fd7d9002599920a946e8bd3441d))
+* use cwd for dotenv ([b95efcb](https://github.com/timescale/pgai/commit/b95efcb8c636a1ccb41045c1a8955697740ad2a9))
+
+
+### Miscellaneous
+
+* **deps:** bump python ([#787](https://github.com/timescale/pgai/issues/787)) ([8f5dfa2](https://github.com/timescale/pgai/commit/8f5dfa22a0f85ab5ecd19ca36353824598f35850))
+* **deps:** bump the dependencies group across 1 directory with 6 updates ([#775](https://github.com/timescale/pgai/issues/775)) ([21c947e](https://github.com/timescale/pgai/commit/21c947eb89dcee4d7a2f05aa5647cae0990190a4))
+* ignore dist directory from pyright ([404eeb3](https://github.com/timescale/pgai/commit/404eeb3040324409ab4c0e985ec39e7bc3072fcf))
+
 ## [0.10.5](https://github.com/timescale/pgai/compare/pgai-v0.10.4...pgai-v0.10.5) (2025-05-19)
 
 

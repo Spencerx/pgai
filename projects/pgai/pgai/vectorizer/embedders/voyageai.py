@@ -20,21 +20,23 @@ def voyage_max_tokens_per_batch(model: str) -> int:
     # The total number of tokens in the list is at most:
     # - 1M for voyage-3-lite
     # - 320K for voyage-3 and voyage-2
-    # - 120K for voyage-3-large, voyage-code-3, voyage-large-2-instruct, voyage-finance-2, voyage-multilingual-2, voyage-law-2, and voyage-large-2  # noqa
+    # - 120K for voyage-3-large, voyage-code-3, voyage-large-2-instruct, voyage-finance-2, voyage-multilingual-2, voyage-law-2, and voyage-large-2
     match model:
         case "voyage-3-lite":
             return 1_000_000
         case "voyage-2" | "voyage-3":
             return 320_000
         case _:
-            return 120_000  # NOTE: This is conservative, but there probably won't be new Voyage models, so...  # noqa
+            return 120_000  # NOTE: This is conservative, but there probably won't be new Voyage models, so...
 
 
-def voyage_token_counter(model: str) -> Callable[[str], int] | None:
+def voyage_token_counter(
+    model: str, api_key: str | None = None
+) -> Callable[[str], int] | None:
     # Note: deferred import to avoid import overhead
     import voyageai
 
-    client: voyageai.Client = voyageai.Client()
+    client: voyageai.Client = voyageai.Client(api_key=api_key)
     try:
         tokenizer: Tokenizer = client.tokenizer(model)
         return lambda text: len(tokenizer.encode(text).tokens)
@@ -91,7 +93,7 @@ class VoyageAI(ApiKeyMixin, BaseModel, Embedder):
         return voyage_max_tokens_per_batch(self.model)
 
     def _token_counter(self) -> Callable[[str], int] | None:
-        return voyage_token_counter(self.model)
+        return voyage_token_counter(self.model, self._api_key)
 
     @override
     async def call_embed_api(self, documents: list[str]) -> EmbeddingResponse:
