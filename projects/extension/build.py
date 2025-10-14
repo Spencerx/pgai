@@ -144,6 +144,18 @@ class Actions:
                 )
                 tmp_src_dir = tmp_dir.joinpath("projects", "extension").resolve()
                 requirements_lock = tmp_src_dir.joinpath("requirements-lock.txt")
+                requirements_txt = tmp_src_dir.joinpath("requirements.txt")
+
+                # If requirements.txt exists, add pydantic constraints to avoid broken versions
+                if requirements_txt.exists():
+                    content = requirements_txt.read_text()
+                    additions = []
+                    if "pydantic==" not in content.lower():
+                        additions.append("pydantic==2.10.5")
+                    if "pydantic-core==" not in content.lower():
+                        additions.append("pydantic-core==2.27.2")
+                    if additions:
+                        requirements_txt.write_text(content + "\n" + "\n".join(additions) + "\n")
 
                 # Generate requirements-lock.txt if it doesn't exist
                 if not requirements_lock.exists():
@@ -199,8 +211,9 @@ class Actions:
             )
         else:
             version_target_dir.mkdir(exist_ok=True)
+            requirements_lock = ext_dir().joinpath("requirements-lock.txt")
             bin = "pip3" if shutil.which("uv") is None else "uv pip"
-            cmd = f'{bin} install -v --compile --target "{version_target_dir}" "{ext_dir()}"'
+            cmd = f'{bin} install -v --compile --target "{version_target_dir}" -r "{requirements_lock}"'
             subprocess.run(
                 cmd,
                 check=True,
@@ -544,7 +557,7 @@ class Actions:
 def versions() -> list[str]:
     # ADD NEW VERSIONS TO THE FRONT OF THIS LIST! STAY SORTED PLEASE
     return [
-        "0.11.2-dev",
+        "0.11.2",  # released
         "0.11.1",  # released
         "0.11.0",  # released
         "0.10.1",  # released
