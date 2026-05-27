@@ -17,6 +17,8 @@
 </div>
 <br/>
 
+> As of February 2026, this project is no longer being maintained or supported.
+
 A Python library that transforms PostgreSQL into a robust, production-ready retrieval engine for RAG and Agentic applications.
 
 - 🔄 **Automatically create and synchronize vector embeddings** from PostgreSQL data and S3 documents. Embeddings update automatically as data changes.
