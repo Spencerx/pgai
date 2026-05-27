@@ -17,7 +17,7 @@
 </div>
 <br/>
 
-> As of February 2026, this project is no longer being maintained or supported.
+<h1> As of February 2026, this project is no longer being maintained or supported. </h1>
 
 A Python library that transforms PostgreSQL into a robust, production-ready retrieval engine for RAG and Agentic applications.
 
